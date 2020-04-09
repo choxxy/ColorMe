@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.garageprojects.colorme.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/to_imageViewer"
+            app:destination="@id/imageViewer" />
+    </fragment>
+    <fragment
+        android:id="@+id/imageViewer"
+        android:name="com.garageprojects.colorme.ImageColorFragment"
+        android:label="ImageViewer" >
+        <argument
+            android:name="source"
+            app:argType="integer" />
+    </fragment>
+</navigation>

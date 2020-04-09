@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainFragment">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:src="@drawable/file_image_outline"
+        app:layout_constraintBottom_toTopOf="@+id/prompt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/prompt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/sixteen"
+        android:gravity="center"
+        android:text="@string/an_image_is_needed_to_generate_a_palette"
+        android:textSize="@dimen/text_fourteen"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.55" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/gallery"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginStart="@dimen/thirty_two"
+        android:layout_marginTop="@dimen/sixteen"
+        android:layout_marginEnd="@dimen/thirty_two"
+        android:layout_marginBottom="@dimen/sixteen"
+        android:text="@string/open_gallery"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_sixteen"
+        app:layout_constraintBottom_toTopOf="@+id/camera"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/camera"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginStart="@dimen/thirty_two"
+        android:layout_marginTop="@dimen/sixteen"
+        android:layout_marginEnd="@dimen/thirty_two"
+        android:layout_marginBottom="@dimen/sixteen"
+        android:text="@string/take_a_picture"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_sixteen"
+        app:layout_constraintBottom_toTopOf="@+id/guideline1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gallery" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
