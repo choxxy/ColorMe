@@ -58,7 +58,7 @@ public class ImageColorFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ImageViewerFragmentArgs args = ImageViewerFragmentArgs.fromBundle(getArguments());
+        ImageColorFragmentArgs args = ImageColorFragmentArgs.fromBundle(getArguments());
 
         if (args.getSource() == SOURCE_CAMERA) {
 

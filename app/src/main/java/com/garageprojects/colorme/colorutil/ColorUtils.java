@@ -1,6 +1,9 @@
 package com.garageprojects.colorme.colorutil;
 
+import android.graphics.Color;
 import android.util.Log;
+
+import androidx.annotation.ColorInt;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,7 +18,7 @@ public class ColorUtils {
      * Initialize the color list that we have.
      */
 
-    private String[][] colorList = {
+    private static String[][] colorList = {
             {"000000", "Black"},
             {"000080", "Navy Blue"},
             {"0000C8", "Dark Blue"},
@@ -1583,7 +1586,7 @@ public class ColorUtils {
             {"FFFFF0", "Ivory"},
             {"FFFFFF", "White"}};
 
-    private List<ColorItem> initColorList() {
+    private static List<ColorItem> initColorList() {
         List<ColorItem> colors = new ArrayList<>();
         for (int i = 0; i < colorList.length; i++) {
             colors.add(new ColorItem(colorList[i][1], colorList[i][0], computeMSE(colorList[i][0])));
@@ -1599,16 +1602,16 @@ public class ColorUtils {
     }
 
 
-    ColorItem binarySearch(List<ColorItem> colorItems, int start, int size, int x) {
+    private static ColorItem binarySearch(List<ColorItem> colorItems, int start, int size, int x) {
         if (size >= start) {
             int mid = start + (size - start) / 2;
 
             // If the element is present at the middle
             // itself
-           // if (colorItems.get(mid).getMse() < x) {
-           //     minMSE = colorItems.get(mid).getMse();
-           //     closestMatch = colorItems.get(mid);
-           // }
+            // if (colorItems.get(mid).getMse() < x) {
+            //     minMSE = colorItems.get(mid).getMse();
+            //     closestMatch = colorItems.get(mid);
+            // }
 
             if (colorItems.get(mid).getMse() == x)
                 return colorItems.get(mid);
@@ -1629,7 +1632,7 @@ public class ColorUtils {
     }
 
 
-    public String getColorNameFromRgb(String hex) {
+    public static String getColorNameFromRgb(String hex) {
         List<ColorItem> colorList = initColorList();
         ColorItem closestMatch = null;
         int x = computeMSE(hex);
@@ -1644,17 +1647,17 @@ public class ColorUtils {
     }
 
 
-    private int computeMSE(String color) {
+    private static int computeMSE(String color) {
         int[] base = {255, 255, 255};
         int[] rgb = getRGB(color);
         return (((base[0] - rgb[0]) * (base[0] - rgb[0]) + (base[1] - rgb[1]) * (base[1] - rgb[1]) + (base[2] - rgb[2]) * (base[2] - rgb[2])) / 3);
     }
 
 
-    private int[] getRGB(String hex) {
+    private static int[] getRGB(String hex) {
         final int[] ret = new int[3];
-        if(hex.startsWith("#"))
-            hex =  hex.substring(1);
+        if (hex.startsWith("#"))
+            hex = hex.substring(1);
 
         for (int i = 0; i < 3; i++) {
             ret[i] = Integer.parseInt(hex.substring(i * 2, i * 2 + 2), 16);
@@ -1663,11 +1666,51 @@ public class ColorUtils {
     }
 
     /**
+     * Calculates and returns the opposite color
+     * for if red is passed into the function cyan will be returned
+     */
+    public static int getComplementaryColor(int color) {
+        //get rgb
+        int white = Color.WHITE;
+        int red = Color.red(color);
+        int green = Color.green(color);
+        int blue = Color.blue(color);
+
+        //find complements,
+        red   ^= 0xFF;
+        green ^= 0xFF;
+        blue  ^= 0xFF;
+
+        return Color.rgb(red, blue, green);
+
+    }
+
+    /**
+     * Calculates and returns the text color based on the background color
+     */
+    @ColorInt
+    public static int getTextColor(@ColorInt int color) {
+        double a = 1 - (0.299 * Color.red(color) + 0.587 * Color.green(color) + 0.114 * Color.blue(color)) / 255;
+        return a < 0.5 ? Color.BLACK : Color.WHITE;
+    }
+
+    //Displays hex representation of displayed color
+    public static String toHex(int color) {
+        String hex = Integer.toHexString(color & 0xffffff);
+        while (hex.length() < 6) {
+            hex = "0" + hex;
+        }
+        hex = "#" + hex.toUpperCase();
+        return hex;
+    }
+
+
+    /**
      * SubClass of ColorUtils. In order to lookup color name
      *
      * @author Xiaoxiao Li
      */
-    public class ColorItem {
+    public static class ColorItem {
 
         private String name;
         private String hex;

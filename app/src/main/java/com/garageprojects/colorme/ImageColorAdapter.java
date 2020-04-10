@@ -41,14 +41,14 @@ public class ImageColorAdapter extends RecyclerView.Adapter<ImageColorAdapter.Im
     public void onBindViewHolder(ImageViewHolder holder, int position) {
         final int color = images.get(position);
         holder.slot.setBackgroundColor(color);
-        holder.hexValue.setText(toHex(color));
-        holder.hexValue.setTextColor(getContrastColor(color));
-        String colorName = colorUtils.getColorNameFromRgb(toHex(color));
+        holder.hexValue.setText(ColorUtils.toHex(color));
+        holder.hexValue.setTextColor(ColorUtils.getTextColor(color));
+        String colorName = ColorUtils.getColorNameFromRgb(ColorUtils.toHex(color));
         if (TextUtils.isEmpty(colorName))
             holder.colorName.setVisibility(View.GONE);
         else {
             holder.colorName.setText(colorName);
-            holder.colorName.setTextColor(getContrastColor(color));
+            holder.colorName.setTextColor(ColorUtils.getTextColor(color));
         }
     }
 
@@ -58,22 +58,6 @@ public class ImageColorAdapter extends RecyclerView.Adapter<ImageColorAdapter.Im
     }
 
 
-    @ColorInt
-    public static int getContrastColor(@ColorInt int color) {
-        // Counting the perceptive luminance - human eye favors green color...
-        double a = 1 - (0.299 * Color.red(color) + 0.587 * Color.green(color) + 0.114 * Color.blue(color)) / 255;
-        return a < 0.5 ? Color.BLACK : Color.WHITE;
-    }
-
-    //Displays hex representation of displayed color
-    private String toHex(int color) {
-        String hex = Integer.toHexString(color & 0xffffff);
-        while (hex.length() < 6) {
-            hex = "0" + hex;
-        }
-        hex = "#" + hex.toUpperCase();
-        return hex;
-    }
 
     static class ImageViewHolder extends RecyclerView.ViewHolder {
 
