@@ -1,7 +1,6 @@
 package com.garageprojects.colorme;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.ColorInt;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.garageprojects.colorme.colorutil.ColorUtils;
@@ -56,8 +54,6 @@ public class ImageColorAdapter extends RecyclerView.Adapter<ImageColorAdapter.Im
     public int getItemCount() {
         return images.size();
     }
-
-
 
     static class ImageViewHolder extends RecyclerView.ViewHolder {
 
