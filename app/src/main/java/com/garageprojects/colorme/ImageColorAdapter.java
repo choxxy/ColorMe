@@ -8,26 +8,33 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.garageprojects.colorme.api.ColorInfo;
 import com.garageprojects.colorme.colorutil.ColorUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ImageColorAdapter extends RecyclerView.Adapter<ImageColorAdapter.ImageViewHolder> {
 
     private Context context;
-    private List<Integer> images;
+    private List<ColorInfo> colors = new ArrayList<>();
     private LayoutInflater inflater;
 
     private final ColorUtils colorUtils;
 
-    public ImageColorAdapter(Context context, List<Integer> colors) {
+    public ImageColorAdapter(Context context) {
         this.context = context;
         inflater = LayoutInflater.from(context);
-        images = colors;
         colorUtils = new ColorUtils();
 
+    }
+
+    public void setItems(List<ColorInfo> items){
+        this.colors = items;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -37,22 +44,21 @@ public class ImageColorAdapter extends RecyclerView.Adapter<ImageColorAdapter.Im
 
     @Override
     public void onBindViewHolder(ImageViewHolder holder, int position) {
-        final int color = images.get(position);
-        holder.slot.setBackgroundColor(color);
-        holder.hexValue.setText(ColorUtils.toHex(color));
-        holder.hexValue.setTextColor(ColorUtils.getTextColor(color));
-        String colorName = ColorUtils.getColorNameFromRgb(ColorUtils.toHex(color));
-        if (TextUtils.isEmpty(colorName))
+        final ColorInfo colorInfo = colors.get(position);
+        holder.slot.setBackgroundColor(colorInfo.getColor());
+        holder.hexValue.setText(ColorUtils.toHex(colorInfo.getColor()));
+        holder.hexValue.setTextColor(colorInfo.getTextColor());
+        if (TextUtils.isEmpty(colorInfo.getName()))
             holder.colorName.setVisibility(View.GONE);
         else {
-            holder.colorName.setText(colorName);
-            holder.colorName.setTextColor(ColorUtils.getTextColor(color));
+            holder.colorName.setText(colorInfo.getName());
+            holder.colorName.setTextColor(colorInfo.getTextColor());
         }
     }
 
     @Override
     public int getItemCount() {
-        return images.size();
+        return colors.size();
     }
 
     static class ImageViewHolder extends RecyclerView.ViewHolder {

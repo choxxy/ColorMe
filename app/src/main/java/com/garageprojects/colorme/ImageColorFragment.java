@@ -4,10 +4,12 @@ package com.garageprojects.colorme;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -21,6 +23,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.garageprojects.colorme.api.ColorNameService;
 import com.nguyenhoanglam.imagepicker.model.Config;
 import com.nguyenhoanglam.imagepicker.model.Image;
 import com.nguyenhoanglam.imagepicker.ui.imagepicker.ImagePicker;
@@ -46,8 +49,13 @@ public class ImageColorFragment extends Fragment {
     ImageView preview;
     @BindView(R.id.list)
     RecyclerView list;
+    @BindView(R.id.progressbar)
+    ProgressBar progressBar;
+
     private ArrayList<Image> images = new ArrayList<>();
 
+    ColorNameService nameService;
+    ImageColorAdapter colorAdapter;
 
     public ImageColorFragment() {
         // Required empty public constructor
@@ -90,6 +98,9 @@ public class ImageColorFragment extends Fragment {
                     .setKeepScreenOn(true)
                     .start();
         }
+
+        nameService = new ColorNameService();
+        colorAdapter =  new ImageColorAdapter(requireContext());
     }
 
 
@@ -101,6 +112,7 @@ public class ImageColorFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         list.setLayoutManager(new LinearLayoutManager(getContext()));
+        list.setAdapter(colorAdapter);
         return view;
     }
 
@@ -132,20 +144,19 @@ public class ImageColorFragment extends Fragment {
                         }
                     })
                     .into(preview);
-
-
         }
-    }
 
+    }
 
     private void extractColors(List<Palette.Swatch> swatches) {
 
-        List<Integer> colors = new ArrayList<>();
+        progressBar.setVisibility(View.VISIBLE);
 
-        for (Palette.Swatch swatch : swatches) {
-            colors.add(swatch.getRgb());
-        }
+        nameService .getColorNames(swatches, result ->{
+            progressBar.setVisibility(View.GONE);
+                    colorAdapter.setItems(result);
+                }
+        );
 
-        list.setAdapter(new ImageColorAdapter(getContext(), colors));
     }
 }
