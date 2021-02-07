@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="10dp"
+        tools:context=".MainActivity">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Seafom Color Scheme"
+            android:textColor="@color/black25PercentColor"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Analagous"
+            android:textColor="@color/black50PercentColor" />
+
+        <!-- Analagous Colours -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:weightSum="1.0">
+
+            <View
+                android:id="@+id/AnalagousSchemeBaseColor"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:background="@color/seafoamColor" />
+
+            <View
+                android:id="@+id/AnalagousSchemeBelow2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2" />
+
+            <View
+                android:id="@+id/AnalagousSchemeBelow1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2" />
+
+            <View
+                android:id="@+id/AnalagousSchemeAbove1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2" />
+
+            <View
+                android:id="@+id/AnalagousSchemeAbove2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2" />
+        </LinearLayout>
+
+        <!-- Monochromatic Colours -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Monochromatic"
+            android:textColor="@color/black50PercentColor" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:weightSum="1.0">
+
+            <View
+                android:id="@+id/MonochromaticSchemeBaseColor"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:background="@color/seafoamColor" />
+
+            <View
+                android:id="@+id/MonochromaticSchemeBelow2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2" />
+
+            <View
+                android:id="@+id/MonochromaticSchemeBelow1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2" />
+
+            <View
+                android:id="@+id/MonochromaticSchemeAbove1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2" />
+
+            <View
+                android:id="@+id/MonochromaticSchemeAbove2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2" />
+        </LinearLayout>
+
+        <!-- Triad Colours -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Triad"
+            android:textColor="@color/black50PercentColor" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:weightSum="1.0">
+
+            <View
+                android:id="@+id/TriadSchemeBaseColor"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:background="@color/seafoamColor" />
+
+            <View
+                android:id="@+id/TriadSchemeBelow2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2" />
+
+            <View
+                android:id="@+id/TriadSchemeBelow1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2" />
+
+            <View
+                android:id="@+id/TriadSchemeAbove1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2" />
+
+            <View
+                android:id="@+id/TriadSchemeAbove2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2" />
+        </LinearLayout>
+
+        <!-- Complementary Colours -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Complementary"
+            android:textColor="@color/black50PercentColor" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:weightSum="1.0">
+
+            <View
+                android:id="@+id/ComplementarySchemeBaseColor"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:background="@color/seafoamColor" />
+
+            <View
+                android:id="@+id/ComplementarySchemeBelow2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2" />
+
+            <View
+                android:id="@+id/ComplementarySchemeBelow1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2" />
+
+            <View
+                android:id="@+id/ComplementarySchemeAbove1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2" />
+
+            <View
+                android:id="@+id/ComplementarySchemeAbove2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2" />
+        </LinearLayout>
+
+        <!-- Contrasting Color -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="Contrasting Color"
+            android:textColor="@color/black25PercentColor"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/LightContrastingColorTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="@string/light_contrasting_color" />
+
+        <TextView
+            android:id="@+id/DarkContrastingColorTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="@string/dark_contrasting_color" />
+
+        <!-- Complementary Colors -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="Complementary Colors"
+            android:textColor="@color/black25PercentColor"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1.0">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="0.5"
+                android:background="@color/wheatColor" />
+
+            <View
+                android:id="@+id/ComplementaryColor1"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="0.5" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1.0">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="0.5"
+                android:background="@color/dangerColor" />
+
+            <View
+                android:id="@+id/ComplementaryColor2"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="0.5" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

@@ -4,18 +4,16 @@ package com.garageprojects.colorme;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -24,6 +22,9 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.garageprojects.colorme.api.ColorNameService;
+import com.garageprojects.colorme.databinding.FragmentImageColorBinding;
+import com.garageprojects.colorme.ui.adapters.ImageColorAdapter;
+import com.garageprojects.colorme.ui.callbacks.OnListItemSelected;
 import com.nguyenhoanglam.imagepicker.model.Config;
 import com.nguyenhoanglam.imagepicker.model.Image;
 import com.nguyenhoanglam.imagepicker.ui.imagepicker.ImagePicker;
@@ -31,26 +32,19 @@ import com.nguyenhoanglam.imagepicker.ui.imagepicker.ImagePicker;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 import static android.app.Activity.RESULT_OK;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ImageColorFragment extends Fragment {
+public class ImageColorFragment extends Fragment implements OnListItemSelected {
 
     public static final int SOURCE_GALLERY = 0;
     public static final int SOURCE_CAMERA = 1;
 
-    @BindView(R.id.preview)
-    ImageView preview;
-    @BindView(R.id.list)
-    RecyclerView list;
-    @BindView(R.id.progressbar)
-    ProgressBar progressBar;
+
+    private FragmentImageColorBinding binding;
 
     private ArrayList<Image> images = new ArrayList<>();
 
@@ -80,8 +74,7 @@ public class ImageColorFragment extends Fragment {
                     .setBackgroundColor("#212121")
                     .setAlwaysShowDoneButton(true)
                     .setRequestCode(100)
-                    .setSavePath("ColorMe")
-                    .setKeepScreenOn(true)
+                    .setDirectoryName("ColorMe")
                     .start();
         } else {
             ImagePicker.with(this)
@@ -94,26 +87,24 @@ public class ImageColorFragment extends Fragment {
                     .setBackgroundColor("#212121")
                     .setAlwaysShowDoneButton(true)
                     .setRequestCode(100)
-                    .setSavePath("ColorMe")
-                    .setKeepScreenOn(true)
+                    .setDirectoryName("ColorMe")
                     .start();
         }
 
         nameService = new ColorNameService();
-        colorAdapter =  new ImageColorAdapter(requireContext());
+        colorAdapter =  new ImageColorAdapter(requireContext(), this);
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_image_color, container, false);
-        ButterKnife.bind(this, view);
 
-        list.setLayoutManager(new LinearLayoutManager(getContext()));
-        list.setAdapter(colorAdapter);
-        return view;
+        binding = FragmentImageColorBinding.inflate(inflater, container, false);
+
+        binding.list.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.list.setAdapter(colorAdapter);
+        return binding.getRoot();
     }
 
 
@@ -143,20 +134,39 @@ public class ImageColorFragment extends Fragment {
                             return false;
                         }
                     })
-                    .into(preview);
+                    .into(binding.preview);
         }
 
     }
 
     private void extractColors(List<Palette.Swatch> swatches) {
 
-        progressBar.setVisibility(View.VISIBLE);
+        binding.progressbar.setVisibility(View.VISIBLE);
 
         nameService .getColorNames(swatches, result ->{
-            progressBar.setVisibility(View.GONE);
+            binding.progressbar.setVisibility(View.GONE);
                     colorAdapter.setItems(result);
                 }
         );
 
+    }
+
+    @Override
+    public void onItemSelected(int color) {
+        // DialogFragment.show() will take care of adding the fragment
+        // in a transaction.  We also want to remove any currently showing
+        // dialog, so make our own transaction and take care of that here.
+        FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+        Fragment prev = getChildFragmentManager().findFragmentByTag("dialog");
+
+        if (prev != null) {
+            ft.remove(prev);
+        }
+
+        ft.addToBackStack(null);
+
+        // Create and show the dialog.
+        DialogFragment newFragment = ColorFragment.newInstance(color);
+        newFragment.show(ft, "dialog");
     }
 }
