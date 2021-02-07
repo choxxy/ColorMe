@@ -1,4 +1,4 @@
-package com.garageprojects.colorme;
+package com.garageprojects.colorme.ui.adapters;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -8,25 +8,28 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.garageprojects.colorme.R;
 import com.garageprojects.colorme.api.ColorInfo;
 import com.garageprojects.colorme.colorutil.ColorUtils;
+import com.garageprojects.colorme.ui.callbacks.OnListItemSelected;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ImageColorAdapter extends RecyclerView.Adapter<ImageColorAdapter.ImageViewHolder> {
 
+    private final OnListItemSelected callback;
     private Context context;
     private List<ColorInfo> colors = new ArrayList<>();
     private LayoutInflater inflater;
 
     private final ColorUtils colorUtils;
 
-    public ImageColorAdapter(Context context) {
+    public ImageColorAdapter(Context context, OnListItemSelected callback) {
         this.context = context;
+        this.callback = callback;
         inflater = LayoutInflater.from(context);
         colorUtils = new ColorUtils();
 
@@ -54,6 +57,8 @@ public class ImageColorAdapter extends RecyclerView.Adapter<ImageColorAdapter.Im
             holder.colorName.setText(colorInfo.getName());
             holder.colorName.setTextColor(colorInfo.getTextColor());
         }
+
+        holder.itemView.setOnClickListener( v -> callback.onItemSelected(colorInfo.getColor()));
     }
 
     @Override
